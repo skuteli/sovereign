@@ -17,6 +17,7 @@ MapObject.prototype.detectCollisions = function(){
 	    if (MAP[Math.round(this.x)+i].length) {  
 	    	MAP[Math.round(this.x)+i].forEach(function(e){
 	    		if (Math.abs(that.y - e.y) < that.scope) {
+	    		  that.collide(e)
 	    		  e.highlighted=true
 	    		}
 	    	})
