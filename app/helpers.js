@@ -44,3 +44,11 @@ function containsObject(obj, list) {
 
     return false;
 }
+
+var TIMERS = {}
+startTimer= function (id) {
+  TIMERS[id]=performance.now()
+}
+stopTimer= function (id) {
+  VIEWMODEL.stats.timers[id]((performance.now()-TIMERS[id]).toFixed(2))
+}

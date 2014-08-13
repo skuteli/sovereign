@@ -4,10 +4,14 @@ var elementSelected = false;
 
 var canvas, context, toggle;
 window.onload = function (){
-init();
-MAP = new Map();
-initDots();
-animate();
+init()
+startTimer('mapCreate')
+MAP = new Map()
+stopTimer('mapCreate')
+startTimer('dotsCreate')
+initDots()
+stopTimer('dotsCreate')
+animate()
 }
 
 function init() {
@@ -17,7 +21,9 @@ function init() {
 
 function animate() {
     requestAnimFrame( animate );
+    startTimer('draw')
     draw();
+    stopTimer('draw')
 }
 
 function draw() {
@@ -33,7 +39,7 @@ function draw() {
     // context.closePath();
     // context.fill();
     context.clearRect(0, 0, canvas.width, canvas.height);
-    dots.forEach(
+    DOTS.forEach(
       drawDot
       )
     animations.forEach(
@@ -43,11 +49,17 @@ function draw() {
 
 
 initDots = function initDots () {
-  dots = new Array;
   var i = 0
-  while (i < 1000) {
-      dots.push(new Dot(Math.floor((Math.random() * 1000) + 1), Math.floor((Math.random() * 1000) + 1)));
-      i++;
+  window.DOTS = new Array
+  while (i < CONFIG.dotsCount) {
+      DOTS.push(new Dot(Math.floor((Math.random() * canvas.width)), Math.floor((Math.random() * canvas.height))));
+      i++
+  }
+  i=0
+  window.FARMS = new Array
+  while (i < CONFIG.farmsCount) {
+      FARMS.push(new Farm(Math.floor((Math.random() * canvas.width)), Math.floor((Math.random() * canvas.height))));
+      i++
   }
 }
 

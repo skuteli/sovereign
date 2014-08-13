@@ -6,9 +6,11 @@ $(document).ready(function(){
 	    {
 			x = e.pageX - $(this).offset().left
 			y = e.pageY - $(this).offset().top
-			dots.forEach(
-				checkIfClicked
-				)
+			elementSelected = MAP.getFirst({x:x,y:y},50,Dot)
+			console.log(elementSelected)
+			// DOTS.forEach(
+			// 	checkIfClicked
+			// 	)
 	    })
 	    .mousedown(function(e) //Right click
 	    {
