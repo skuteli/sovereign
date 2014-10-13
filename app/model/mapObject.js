@@ -1,6 +1,7 @@
-MapObject = function (x,y, type) {
-	this.x = x || 100;
-	this.y = y || 100;
+MapObject = function MapObject (x,y, type) {
+	this.x = x || 100
+	this.y = y || 100
+	MAP.push(this)
 	this.radius = Math.random() * 10
 }
 

@@ -1,4 +1,4 @@
 var CONFIG = {
-	dotsCount: 1000,
-	farmsCount: 1000
+	dotsCount: 100,
+	farmsCount: 100
 }

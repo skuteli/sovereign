@@ -1,3 +1,4 @@
+define(['jquery'], function($) {
 
 // Enable the passage of the 'this' object through the JavaScript timers
  
@@ -34,7 +35,7 @@ window.setInterval = function (vCallback, nDelay /*, argumentToPass1, argumentTo
 
 // example code from mr doob : http://mrdoob.com/lab/javascript/requestanimationframe/
 
-function containsObject(obj, list) {
+window.containsObject =  function containsObject(obj, list) {
     var i;
     for (i = 0; i < list.length; i++) {
         if (list[i] === obj) {
@@ -45,10 +46,17 @@ function containsObject(obj, list) {
     return false;
 }
 
-var TIMERS = {}
-startTimer= function (id) {
+window.TIMERS = {}
+
+exports = {}
+
+exports.startTimer= function (id) {
   TIMERS[id]=performance.now()
 }
-stopTimer= function (id) {
+exports.stopTimer= function (id) {
   VIEWMODEL.stats.timers[id]((performance.now()-TIMERS[id]).toFixed(2))
 }
+
+return exports
+
+});

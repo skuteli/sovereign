@@ -1,16 +1,18 @@
+define(["app/model/mapObject"], function () {
 
-
-Dot = function (x,y, intent) {
-	this.x = x || 100
-	this.y = y || 100
-	MAP.push(this)
+Dot = function Dot (x,y, intent) {
+	MapObject.call(this, x, y)
 	// this.radius = Math.random() * 10
 	this.power = Math.random() * 10
 	this.vassals = []
 	this.live();
 }
 
-Dot.prototype = new MapObject(); 
+Dot.prototype = Object.create(MapObject.prototype, {
+	constructor: {
+		value:Dot
+	}
+})
 
 Dot.prototype.live = function live () {
     if(this.isSelected || this.isDead)
@@ -64,7 +66,6 @@ Dot.prototype.moveTowards = function moveTowards(x, y) {
 	    this.isMoving = setTimeout.call(this, moveTowards, this.loopSpeed, x, y)
 	}
 };
-
 
 
 Dot.prototype.move = function(x, y) {
@@ -141,9 +142,6 @@ Dot.prototype.die = function() {
 }
 
 
-
-
-
 Dot.prototype.maxVassals = 5;
 Dot.prototype.scope = 10;
 Dot.prototype.radius = 5;
@@ -151,3 +149,6 @@ Dot.prototype.thinkSpeed = 200;
 Dot.prototype.loopSpeed = 10;
 Dot.prototype.moveSpeed = 0.2;
 Dot.prototype.isDead=false;
+
+
+});

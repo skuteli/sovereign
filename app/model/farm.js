@@ -1,7 +1,5 @@
-Farm = function (x,y, intent) {
-	this.x = x || 100
-	this.y = y || 100
-	MAP.push(this)
+Farm = function Farm (x,y, intent) {
+	MapObject.call(this, x, y)
 	// this.radius = Math.random() * 10
 	this.power = Math.random() * 10
 	//this.live();
