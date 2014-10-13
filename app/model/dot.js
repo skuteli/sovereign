@@ -1,9 +1,9 @@
-define(["app/model/mapObject"], function () {
+define(["app/model/mapObject", "configuration/colors"], function (MapObject, colors) {
 
 Dot = function Dot (x,y, intent) {
 	MapObject.call(this, x, y)
 	// this.radius = Math.random() * 10
-	this.power = Math.random() * 10
+	this.power = (Math.random() * 10).toFixed()
 	this.vassals = []
 	this.live();
 }
@@ -28,17 +28,17 @@ Dot.prototype.live = function live () {
 
 
 Dot.prototype.goTo = function goTo(target) {
-	if (this.isMoving)
+	if (this.movement)
 	{
-		clearTimeout(this.isMoving)
-		this.isMoving = false;
+		clearTimeout(this.movement.timer)
 	}
-		this.distance = Math.sqrt(Math.pow(target.x-this.x,2)+Math.pow(target.y-this.y,2));
-		this.startX = this.x;
-		this.startY = this.y;
-		this.directionX = (target.x-this.x) / this.distance;
-		this.directionY = (target.y-this.y) / this.distance;
-	if (this.distance) this.moveTowards(target.x, target.y)
+	this.movement = {}
+	this.movement.distance = Math.sqrt(Math.pow(target.x-this.x,2)+Math.pow(target.y-this.y,2));
+	this.movement.startX = this.x;
+	this.movement.startY = this.y;
+	this.movement.directionX = (target.x-this.x) / this.movement.distance;
+	this.movement.directionY = (target.y-this.y) / this.movement.distance;
+	if (this.movement.distance) this.moveTowards(target.x, target.y)
 };
 
 
@@ -46,24 +46,24 @@ Dot.prototype.moveTowards = function moveTowards(x, y) {
 
 	MAP.pop(this) //remove from X map before moving
 
-    this.x += this.directionX * this.moveSpeed * this.loopSpeed
-    this.y += this.directionY * this.moveSpeed * this.loopSpeed
+    this.x += this.movement.directionX * this.moveSpeed * this.loopSpeed
+    this.y += this.movement.directionY * this.moveSpeed * this.loopSpeed
 
 	// this.detectCollisions()
 
     MAP.push(this) // add to map with new position.
 
-    if(Math.sqrt(Math.pow(this.x-this.startX,2)+Math.pow(this.y-this.startY,2)) >= this.distance) // snap if finished
+    if(Math.sqrt(Math.pow(this.x-this.movement.startX,2)+Math.pow(this.y-this.movement.startY,2)) >= this.movement.distance) // snap if finished
     {
     	MAP.pop(this)
         this.x = x;
         this.y = y;
         MAP.push(this)
-        this.isMoving = false;
+        delete this.movement
     }
 	else 
 	{
-	    this.isMoving = setTimeout.call(this, moveTowards, this.loopSpeed, x, y)
+	    this.movement.timer = setTimeout.call(this, moveTowards, this.loopSpeed, x, y)
 	}
 };
 
@@ -74,10 +74,10 @@ Dot.prototype.move = function(x, y) {
 }
 
 Dot.prototype.getColor = function() {
-	if (this == elementSelected) return COLORS.dots.active
-	else if (this.highlighted)  return COLORS.dots.highlighted
-    else if (this.highlighted2)  return COLORS.dots.highlighted2
-	else return COLORS.dots.default
+	if (this == elementSelected) return colors.dots.active
+	else if (this.highlighted)  return colors.dots.highlighted
+    else if (this.highlighted2)  return colors.dots.highlighted2
+	else return colors.dots.default
 }
 
 Dot.prototype.collide = function(e) {

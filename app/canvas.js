@@ -1,4 +1,4 @@
-define(["app/helpers", "app/animations"], function(helpers, animations) {
+define(["app/helpers", "app/animations", "configuration/colors"], function(helpers, animations, colors) {
 
 window.CANVAS= document.querySelector( 'canvas' )
 window.CONTEXT = CANVAS.getContext( '2d' )
@@ -39,7 +39,7 @@ drawDot = function (dot) {
     CONTEXT.closePath();
     if (true) {
       //draw lines to vassals
-      CONTEXT.strokeStyle = COLORS.lines.vassal;
+      CONTEXT.strokeStyle = colors.lines.vassal;
       dot.vassals.forEach(function(vassal){
         CONTEXT.beginPath();
         CONTEXT.moveTo(dot.x, dot.y);
@@ -50,7 +50,7 @@ drawDot = function (dot) {
       //draw line to lord
       if (dot.lord) {
         CONTEXT.beginPath();
-        CONTEXT.strokeStyle = COLORS.lines.lord;
+        CONTEXT.strokeStyle = colors.lines.lord;
         CONTEXT.moveTo(dot.x, dot.y);
         CONTEXT.lineTo(dot.lord.x, dot.lord.y);
         CONTEXT.stroke();  

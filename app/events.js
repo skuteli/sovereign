@@ -7,6 +7,7 @@ define(['jquery', "app/animations"], function($, animations) {
                 x = e.pageX - $(this).offset().left
                 y = e.pageY - $(this).offset().top
                 elementSelected = MAP.getFirst({x:x,y:y},10,Dot)
+                console.log("selected: ")
                 console.log(elementSelected)
                 // DOTS.forEach(
                 //     checkIfClicked
@@ -37,7 +38,16 @@ define(['jquery', "app/animations"], function($, animations) {
             	x = e.pageX - $(this).offset().left
                 y = e.pageY - $(this).offset().top
             	hoveredElement=MAP.getFirst({x:x,y:y},5,Dot)
-            	hoveredElement ? $('#tooltip').css({left:x+20, top:y+20}).text(hoveredElement.constructor.name) : void(0)
+            	hoveredElement ? $('#tooltip').css({left:x+20, top:y+20}).html(hoveredElement.constructor.name +"<br/>"+  JSON.stringify(hoveredElement
+                    , function replacer(key, value) {
+                        if (key === "vassals") 
+                            {
+                                return value.length;
+                            } 
+                        if (key === "movement") return undefined
+                        return value;
+                    }
+                    , 2).replace(/[\"\{\}]/g, "")) : void(0)
             })
     })
 

@@ -1,4 +1,6 @@
-var COLORS = {
+define([], function () {
+
+colors = {
 	lines: {
 		vassal:'rgba(0,0,200,0.2)',
 		lord:'rgba(200,0,0, 0.2)'
@@ -10,3 +12,7 @@ var COLORS = {
 		highlighted2:'rgba(200,200,200, 1)'
 	}
 }
+
+return colors
+
+});

@@ -7,8 +7,6 @@ require([
 	, "app/map.js"
 	, "configuration/config.js"
 	, "configuration/colors.js"
-	, "app/animations.js"
-	, "app/model/mapObject.js"
 	, "app/model/dot.js"
 	, "app/model/farm.js"
 	],
