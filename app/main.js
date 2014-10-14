@@ -5,12 +5,13 @@ require([
 	, "app/helpers.js"
 	, "app/statistics.js"
 	, "app/map.js"
+	, "app/queue.js"
 	, "configuration/config.js"
 	, "configuration/colors.js"
 	, "app/model/dot.js"
 	, "app/model/farm.js"
 	],
-function (ko, canvas, helpers, ViewModel, Map) {
+function (ko, canvas, helpers, ViewModel, Map, Queue) {
 
 var rhytm = 100;
 window.elementSelected = false;
@@ -36,6 +37,7 @@ window.VIEWMODEL = new ViewModel()
 
 helpers.startTimer('mapCreate')
 window.MAP = new Map(CANVAS)
+window.QUEUE = new Queue
 helpers.stopTimer('mapCreate')
 
 helpers.startTimer('dotsCreate')
@@ -57,3 +59,10 @@ $(document).ready(
 
 require(["app/events.js"],
 function () {});
+
+
+if (true) require(["app/tests/queueTest"], 
+	function (queueTest) {
+		window.TESTS = {}
+		TESTS.queueTest = queueTest
+		console.log("tests loaded. run with TESTS.testName()")});

@@ -22,7 +22,7 @@ Dot.prototype.live = function live () {
 	else 
 	{
 		this.think()
-	    this.life = setTimeout.call(this, live, this.thinkSpeed)
+	    this.life = QUEUE.add(live, this, this.thinkSpeed)
 	}
 }
 
@@ -30,7 +30,7 @@ Dot.prototype.live = function live () {
 Dot.prototype.goTo = function goTo(target) {
 	if (this.movement)
 	{
-		clearTimeout(this.movement.timer)
+		QUEUE.clear(this.movement.timer)
 	}
 	this.movement = {}
 	this.movement.distance = Math.sqrt(Math.pow(target.x-this.x,2)+Math.pow(target.y-this.y,2));
@@ -63,7 +63,7 @@ Dot.prototype.moveTowards = function moveTowards(x, y) {
     }
 	else 
 	{
-	    this.movement.timer = setTimeout.call(this, moveTowards, this.loopSpeed, x, y)
+	    this.movement.timer = QUEUE.add(moveTowards, this, this.loopSpeed, x, y)
 	}
 };
 
@@ -130,7 +130,7 @@ Dot.prototype.think = function() {
 
 Dot.prototype.die = function() {
 	this.isDead = true; 
-	clearTimeout(this.life)
+	QUEUE.clear(this.life)
 	that = this;
 	DOTS.forEach(function(e, i){
 		if (e == that) {
