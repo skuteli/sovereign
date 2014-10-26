@@ -28,7 +28,7 @@
  				ms
  			</p>
  			<p>
- 				<button onclick="stopGame">Stop/start</button>
+ 				<button data-bind="click:QUEUE.toggle.bind(QUEUE), text:isRunning() ?'Pause':'Resume'">Stop/start</button>
  			</p>
  		</div>
  	</body>

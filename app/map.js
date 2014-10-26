@@ -7,7 +7,7 @@ define(["app/canvas"], function (canvas) {
         for (var i = 0; i<this.width; i++) {
             this.data[i]= new Array(this.height)
             for (var j = 0; j<this.width; j++) {
-                this.data[i][j]= new Array
+                this.data[i][j]= []
             }
         }
         return this;
