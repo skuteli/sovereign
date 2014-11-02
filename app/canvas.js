@@ -25,11 +25,21 @@ function draw() {
     CONTEXT.clearRect(0, 0, CANVAS.width, CANVAS.height);
     for (var i = 0; i<DOTS.length; i++) {
     	drawDot(DOTS[i])
+        drawFarm(FARMS[i])
     }
     animations.animations.forEach(
         animations.drawAnimation
       )
 }
+
+drawFarm = function (farm) {
+    CONTEXT.beginPath();
+    CONTEXT.fillStyle = farm.getColor();
+    CONTEXT.arc(farm.x, farm.y, 2, 0, Math.PI * 2, true);
+    CONTEXT.fill();
+    CONTEXT.closePath();    
+}
+
 
 drawDot = function (dot) {
     CONTEXT.beginPath();

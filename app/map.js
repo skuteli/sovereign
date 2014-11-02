@@ -32,6 +32,8 @@ define(["app/canvas"], function (canvas) {
 
     Map.prototype.getFirst = function(location, radius, klass) {
 
+        console.log("looking for nearest "+ klass.name + " from x:" +location.x+", y:"+location.y+" in square "+radius+" wide.")
+
         var result
           , klass = klass || Object //Class filter
           , x=Math.round(location.x)
@@ -49,7 +51,11 @@ define(["app/canvas"], function (canvas) {
                         result instanceof klass &&
                         result.x-x<radius && 
                         result.y-y<radius &&
-                        result!=location) return result // don't push element itself
+                        result!=location) // don't push element itself
+                        {
+                            console.log("Found "+ klass.name + ". Returning from map.")
+                            return result
+                        }
                 }
             }
         }

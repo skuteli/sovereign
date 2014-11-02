@@ -1,17 +1,17 @@
 
 require([
-	  "knockout"
-	, "app/canvas.js"
-	, "app/helpers.js"
-	, "app/statistics.js"
-	, "app/map.js"
-	, "app/queue.js"
-	, "configuration/config.js"
-	, "configuration/colors.js"
-	, "app/model/dot.js"
-	, "app/model/farm.js"
-	],
-function (ko, canvas, helpers, ViewModel, Map, Queue) {
+      "knockout"
+    , "configuration/config.js"
+    , "configuration/colors.js"
+    , "app/canvas.js"
+    , "app/helpers.js"
+    , "app/statistics.js"
+    , "app/map.js"
+    , "app/queue.js"
+    , "app/model/dot.js"
+    , "app/model/farm.js"
+    ],
+function (ko, config, colors, canvas, helpers, ViewModel, Map, Queue) {
 
 var rhytm = 100;
 window.elementSelected = false;
@@ -48,9 +48,9 @@ canvas.animate(canvas)
 
 
 $(document).ready(
-	function(){
-		ko.applyBindings(VIEWMODEL, document.getElementById('stats'));
-	}
+    function(){
+        ko.applyBindings(VIEWMODEL, document.getElementById('stats'));
+    }
 )
 
 
@@ -62,7 +62,7 @@ function () {});
 
 
 if (true) require(["app/tests/queueTest"], 
-	function (queueTest) {
-		window.TESTS = {}
-		TESTS.queueTest = queueTest
-		console.log("tests loaded. run with TESTS.testName()")});
+    function (queueTest) {
+        window.TESTS = {}
+        TESTS.queueTest = queueTest
+        console.log("tests loaded. run with TESTS.testName()")});

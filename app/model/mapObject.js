@@ -15,6 +15,7 @@ MapObject.prototype.getPosition = function(){
 	}
 }
 
+
 MapObject.prototype.detectCollisions = function(){
 	objects = MAP.getAll(this, this.scope)
 	if (!objects.length) return

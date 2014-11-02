@@ -1,12 +1,21 @@
 define(["app/model/mapObject", "configuration/colors"], function (MapObject, colors) {
 
 Dot = function Dot (x,y, intent) {
+	this.isDead=false;
+	this.isFarming=false;
 	MapObject.call(this, x, y)
 	// this.radius = Math.random() * 10
 	this.power = (Math.random() * 10).toFixed()
 	this.vassals = []
+	Object.defineProperty(this, 'isMoving', {
+		get: function() {
+			return !!this.movement
+		}
+	})
 	this.live();
 }
+
+
 
 Dot.prototype = Object.create(MapObject.prototype, {
 	constructor: {
@@ -14,13 +23,17 @@ Dot.prototype = Object.create(MapObject.prototype, {
 	}
 })
 
+
+
 Dot.prototype.live = function live () {
     if(this.isSelected || this.isDead)
     {
+    	console.warn("Attempting to live on dead or selected dot. Returning.")
     	return
     }
 	else 
 	{
+		console.log("Dot is alive! Will think.")
 		this.think()
 	    this.life = QUEUE.add(live, this, this.thinkSpeed)
 	}
@@ -28,6 +41,7 @@ Dot.prototype.live = function live () {
 
 
 Dot.prototype.goTo = function goTo(target) {
+	console.log("Going to move from x:"+ this.x + ", y:" + this.y +" towards "+ target)
 	if (this.movement)
 	{
 		QUEUE.clear(this.movement.timer)
@@ -75,6 +89,7 @@ Dot.prototype.move = function(x, y) {
 
 Dot.prototype.getColor = function() {
 	if (this == elementSelected) return colors.dots.active
+	else if (this.isFarming) return colors.dots.farming
 	else if (this.highlighted)  return colors.dots.highlighted
     else if (this.highlighted2)  return colors.dots.highlighted2
 	else return colors.dots.default
@@ -82,7 +97,7 @@ Dot.prototype.getColor = function() {
 
 Dot.prototype.collide = function(e) {
 	if (e instanceof Dot) {
-		// console.log('collided with dot!')
+		console.log('collided with dot!')
 		if (this.vassals.length<this.maxVassals && e.power<this.power) {
 			this.dominate(e)
 		}
@@ -90,8 +105,12 @@ Dot.prototype.collide = function(e) {
 			console.log('max vassals reached')
 		}
 		else if (e.power>=this.power) {
-			// console.log('to powerfull!')
+			console.log('to powerfull!')
 		}
+	}
+	if (e instanceof Farm) {
+		console.log("collided with farm.")
+		this.isFarming = true
 	}
 }
 
@@ -123,12 +142,33 @@ Dot.prototype.wander = function(e) {
 }
 
 Dot.prototype.think = function() {
+	console.log("Dot is thinking.")
 	this.detectAdjactentCollisions()
-	this.wander()
+	// this.wander()
+	if (!this.isFarming && !this.isMoving) {
+		console.log("going to Farm")
+		this.goToNearest(Farm)
+	} 
+}
+
+
+
+
+Dot.prototype.goToNearest= function(klass, limit) {
+	limit?void(0):limit=100
+    object = MAP.getFirst(this, limit, klass)
+	if (object) {
+		console.log(klass.name + " found. Distance:" + Math.sqrt(Math.pow(this.x-object.x, 2) + Math.pow(this.y-object.y, 2)))
+		this.goTo(object)
+	}
+	else {console.log("Nothing found...")}
+
+
 }
 
 
 Dot.prototype.die = function() {
+	console.log("Dot is dying. Goodbye:(")
 	this.isDead = true; 
 	QUEUE.clear(this.life)
 	that = this;
@@ -145,10 +185,8 @@ Dot.prototype.die = function() {
 Dot.prototype.maxVassals = 5;
 Dot.prototype.scope = 10;
 Dot.prototype.radius = 5;
-Dot.prototype.thinkSpeed = 200;
+Dot.prototype.thinkSpeed = 5000;
 Dot.prototype.loopSpeed = 10;
 Dot.prototype.moveSpeed = 0.2;
-Dot.prototype.isDead=false;
-
 
 });

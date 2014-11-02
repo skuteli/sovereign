@@ -32,23 +32,27 @@ define(['jquery', "app/animations"], function($, animations) {
             {
                 //Do something
             })
-            .mousemove(function(e) 
-            {
-            	var hoveredElement
-            	x = e.pageX - $(this).offset().left
-                y = e.pageY - $(this).offset().top
-            	hoveredElement=MAP.getFirst({x:x,y:y},5,Dot)
-            	hoveredElement ? $('#tooltip').css({left:x+20, top:y+20}).html(hoveredElement.constructor.name +"<br/>"+  JSON.stringify(hoveredElement
-                    , function replacer(key, value) {
-                        if (key === "vassals") 
-                            {
-                                return value.length;
-                            } 
-                        if (key === "movement") return undefined
-                        return value;
-                    }
-                    , 2).replace(/[\"\{\}]/g, "")) : void(0)
-            })
+
+            if (CONFIG.display.tooltipsEnabled) {
+              $('canvas')  
+                .mousemove(function(e) 
+                {
+                	var hoveredElement
+                	x = e.pageX - $(this).offset().left
+                    y = e.pageY - $(this).offset().top
+                	hoveredElement=MAP.getFirst({x:x,y:y},5,Dot)
+                	hoveredElement ? $('#tooltip').css({left:x+20, top:y+20}).html(hoveredElement.constructor.name +"<br/>"+  JSON.stringify(hoveredElement
+                        , function replacer(key, value) {
+                            if (key === "vassals") 
+                                {
+                                    return value.length;
+                                } 
+                            if (key === "movement") return undefined
+                            return value;
+                        }
+                        , 2).replace(/[\"\{\}]/g, "")) : void(0)
+                })
+            }
     })
 
 
