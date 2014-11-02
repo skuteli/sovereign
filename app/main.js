@@ -19,15 +19,15 @@ window.elementSelected = false;
 
 initDots = function initDots () {
   var i = 0
-  window.DOTS = new Array
-  while (i < CONFIG.dotsCount) {
-      DOTS.push(new Dot(Math.floor((Math.random() * CANVAS.width)), Math.floor((Math.random() * CANVAS.height))));
-      i++
-  }
-  i=0
   window.FARMS = new Array
   while (i < CONFIG.farmsCount) {
       FARMS.push(new Farm(Math.floor((Math.random() * CANVAS.width)), Math.floor((Math.random() * CANVAS.height))));
+      i++
+  }
+  i=0
+  window.DOTS = new Array
+  while (i < CONFIG.dotsCount) {
+      DOTS.push(new Dot(Math.floor((Math.random() * CANVAS.width)), Math.floor((Math.random() * CANVAS.height))));
       i++
   }
 }

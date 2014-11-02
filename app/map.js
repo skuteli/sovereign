@@ -30,7 +30,7 @@ define(["app/canvas"], function (canvas) {
     }
 
 
-    Map.prototype.getFirst = function(location, radius, klass) {
+    Map.prototype.getFirstBiased = function(location, radius, klass) {
 
         console.log("looking for nearest "+ klass.name + " from x:" +location.x+", y:"+location.y+" in square "+radius+" wide.")
 
@@ -62,6 +62,56 @@ define(["app/canvas"], function (canvas) {
 
         return false
     }
+
+
+    Map.prototype.throwFirstFromPoint= function(x,y, klass, excludedElement) {
+        if (this.isInMap({x:x, y:y})) {
+            result=this.data[x][y].findFirst(function(el){
+                    return el instanceof klass
+                })
+            if (result && result!=excludedElement) throw result
+        }
+    }
+
+
+
+    Map.prototype.getFirst = function(location, radius, klass) {
+
+        console.log("looking for nearest "+ klass.name + " from x:" +location.x+", y:"+location.y+" in radius "+radius+".")
+        var klass = klass || Object //Class filter
+          , x=Math.round(location.x)
+          , y=Math.round(location.y)
+        try {
+            // check the point where we start
+            this.throwFirstFromPoint(x, y, klass, location)
+            // iterate over radiuses from 1 (0 already covered)
+            for (var currentRadius = 1; currentRadius<=radius; currentRadius++) {
+                // check left edge 
+                this.throwFirstFromPoint(x-currentRadius, y, klass, location)
+                // run from left to right
+                for (var i = -currentRadius+1; i<=currentRadius-1; i++) {
+                    // check the field above the x axis
+                    this.throwFirstFromPoint(x+i, y+(currentRadius-Math.abs(i)), klass, location)
+                    // check the field below the x axis
+                    this.throwFirstFromPoint(x+i, y-(currentRadius-Math.abs(i)), klass, location)
+                }
+                this.throwFirstFromPoint(x+currentRadius, y, klass, location)
+            }
+        }
+
+        catch (e)
+        {
+            if (e instanceof klass) {
+                console.info("Found "+ klass.name + ". Radius:"+ currentRadius +" Returning from map.")
+                return e
+            }
+            else {
+                throw e
+            }
+        }
+        return false
+    }
+
 
     Map.prototype.getAll = function(location,radius, klass) {
         

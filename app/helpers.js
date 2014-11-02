@@ -46,6 +46,16 @@ window.containsObject =  function containsObject(obj, list) {
     return false;
 }
 
+Array.prototype.findFirst = function (test, ctx) {
+    var result = null;
+    this.some(function(el, i) {
+        return test.call(ctx, el, i) ? ((result = el), true) : false;
+    });
+    return result;
+}
+
+
+
 window.TIMERS = {}
 
 exports = {}
