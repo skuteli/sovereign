@@ -1,3 +1,5 @@
+"use strict";
+
 define(["app/canvas"], function(canvas) {
 
 var exports = {}

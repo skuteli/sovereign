@@ -1,3 +1,5 @@
+"use strict";
+
 define(["app/queue"], function(queue) {
 	"use strict";
 	var testObject = {name:"proper this"}

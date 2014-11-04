@@ -1,7 +1,9 @@
+"use strict";
+
 define([], function () {
 
 
-MapObject = function MapObject (x,y, type) {
+let MapObject = function MapObject (x,y, type) {
 	this.x = x || 100
 	this.y = y || 100
 	MAP.push(this)
@@ -17,7 +19,7 @@ MapObject.prototype.getPosition = function(){
 
 
 MapObject.prototype.detectCollisions = function(){
-	objects = MAP.getAll(this, this.scope)
+	let objects = MAP.getAll(this, this.scope)
 	if (!objects.length) return
 	for (var i = 0; i<objects.length; i++) {
 		console.log("collision")
@@ -27,7 +29,7 @@ MapObject.prototype.detectCollisions = function(){
 }
 
 MapObject.prototype.detectAdjactentCollisions = function(){
-	objects = MAP.getAll(this, 1)
+	let objects = MAP.getAll(this, 1)
 	if (!objects) return
 	for (var i = 0; i<objects.length; i++) {
 		console.log("collision")

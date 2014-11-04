@@ -1,7 +1,11 @@
+"use strict";
+
 define(["app/helpers", "app/animations", "configuration/colors"], function(helpers, animations, colors) {
 
 window.CANVAS= document.querySelector( 'canvas' )
 window.CONTEXT = CANVAS.getContext( '2d' )
+
+let exports={}
 
 exports.animate = function animate(canvas) {
     helpers.startTimer('draw')
@@ -32,7 +36,7 @@ function draw() {
       )
 }
 
-drawFarm = function (farm) {
+let drawFarm = function (farm) {
     CONTEXT.beginPath();
     CONTEXT.fillStyle = farm.getColor();
     CONTEXT.arc(farm.x, farm.y, 2, 0, Math.PI * 2, true);
@@ -41,7 +45,7 @@ drawFarm = function (farm) {
 }
 
 
-drawDot = function (dot) {
+let drawDot = function (dot) {
     CONTEXT.beginPath();
     CONTEXT.fillStyle = dot.getColor();
     CONTEXT.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2, true);

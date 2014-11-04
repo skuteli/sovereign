@@ -1,7 +1,9 @@
+"use strict";
+
 define(["app/model/mapObject", "configuration/colors"], function (MapObject, colors) {
 
 
-Farm = function Farm (x,y, intent) {
+let Farm = function Farm (x,y, intent) {
 	MapObject.call(this, x, y)
 	// this.radius = Math.random() * 10
 	this.power = Math.random() * 10
@@ -11,5 +13,7 @@ Farm = function Farm (x,y, intent) {
 Farm.prototype.getColor = function() {
     return colors.farms.default
 }
+
+return Farm
 
 });

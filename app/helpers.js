@@ -1,3 +1,5 @@
+"use strict";
+
 define(['jquery'], function($) {
 
 // Enable the passage of the 'this' object through the JavaScript timers
@@ -58,7 +60,7 @@ Array.prototype.findFirst = function (test, ctx) {
 
 window.TIMERS = {}
 
-exports = {}
+let exports = {}
 
 exports.startTimer= function (id) {
   TIMERS[id]=performance.now()

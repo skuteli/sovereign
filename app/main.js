@@ -1,23 +1,25 @@
+"use strict";
 
 require([
       "knockout"
-    , "configuration/config.js"
-    , "configuration/colors.js"
-    , "app/canvas.js"
-    , "app/helpers.js"
-    , "app/statistics.js"
-    , "app/map.js"
-    , "app/queue.js"
-    , "app/model/dot.js"
-    , "app/model/farm.js"
+    , "configuration/config"
+    , "configuration/colors"
+    , "app/canvas"
+    , "app/helpers"
+    , "app/statistics"
+    , "app/map"
+    , "app/queue"
+    , "app/events"
+    , "app/model/dot"
+    , "app/model/farm"
     ],
-function (ko, config, colors, canvas, helpers, ViewModel, Map, Queue) {
+function (ko, config, colors, canvas, helpers, ViewModel, Map, Queue, events, Dot, Farm) {
 
 var rhytm = 100;
 window.elementSelected = false;
 
 
-initDots = function initDots () {
+var initDots = function initDots () {
   var i = 0
   window.FARMS = new Array
   while (i < CONFIG.farmsCount) {
@@ -50,6 +52,8 @@ canvas.animate(canvas)
 $(document).ready(
     function(){
         ko.applyBindings(VIEWMODEL, document.getElementById('stats'));
+
+        events()
     }
 )
 
@@ -57,8 +61,8 @@ $(document).ready(
 });
 
 
-require(["app/events.js"],
-function () {});
+// require(["app/events.js"],
+// function () {});
 
 
 if (true) require(["app/tests/queueTest"], 

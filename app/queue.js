@@ -1,8 +1,10 @@
+"use strict";
+
 // this will manage all actions as a queue; initially will just allow to stop/start 
 define([], function() {
 // subclassing array here. http://perfectionkills.com/how-ecmascript-5-still-does-not-allow-to-subclass-an-array/#wrappers_direct_property_injection
 // https://github.com/jokeyrhyme/js-sub-array-tests
-Queue = function Queue() {
+let Queue = function Queue() {
 	Object.defineProperty(this, "_isRunning", {
 			value: true
 	  		,writable : true
@@ -24,7 +26,7 @@ Object.defineProperties(Queue.prototype, {
   add : {
     value: function(callback, hostObject, delay, args) {
 		    if (args) args = Array.prototype.slice.call(arguments, 3);
-		        timer = (function (that) {
+		        let timer = (function (that) {
 		        var timer = setTimeout(function(){
 		          callback.apply(hostObject, args)
 		          delete that[timer]

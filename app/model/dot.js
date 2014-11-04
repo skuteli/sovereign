@@ -1,6 +1,8 @@
-define(["app/model/mapObject", "configuration/colors"], function (MapObject, colors) {
+"use strict";
 
-Dot = function Dot (x,y, intent) {
+define(["app/model/mapObject", "app/model/farm", "configuration/colors"], function (MapObject, Farm, colors) {
+
+let Dot = function (x,y, intent) {
 	this.isDead=false;
 	this.isFarming=false;
 	MapObject.call(this, x, y)
@@ -47,7 +49,8 @@ Dot.prototype.goTo = function goTo(target) {
 		QUEUE.clear(this.movement.timer)
 	}
 	this.movement = {}
-	this.movement.distance = Math.sqrt(Math.pow(target.x-this.x,2)+Math.pow(target.y-this.y,2));
+    this.movement.distance = Math.hypot(target.x-this.x,target.y-this.y);
+	// this.movement.distance = Math.sqrt(Math.pow(target.x-this.x,2)+Math.pow(target.y-this.y,2));
 	this.movement.startX = this.x;
 	this.movement.startY = this.y;
 	this.movement.directionX = (target.x-this.x) / this.movement.distance;
@@ -67,7 +70,7 @@ Dot.prototype.moveTowards = function moveTowards(x, y) {
 
     MAP.push(this) // add to map with new position.
 
-    if(Math.sqrt(Math.pow(this.x-this.movement.startX,2)+Math.pow(this.y-this.movement.startY,2)) >= this.movement.distance) // snap if finished
+    if(Math.hypot(this.x-this.movement.startX, this.y-this.movement.startY) >= this.movement.distance) // snap if finished
     {
     	MAP.pop(this)
         this.x = x;
@@ -156,9 +159,9 @@ Dot.prototype.think = function() {
 
 Dot.prototype.goToNearest= function(klass, limit) {
 	limit?void(0):limit=100
-    object = MAP.getFirst(this, limit, klass)
+    let object = MAP.getFirst(this, limit, klass)
 	if (object) {
-		console.log(klass.name + " found. Distance:" + Math.sqrt(Math.pow(this.x-object.x, 2) + Math.pow(this.y-object.y, 2)))
+		console.log(klass.name + " found. Distance:" + Math.hypot(this.x-object.x,this.y-object.y))
 		this.goTo(object)
 	}
 	else {console.log("Nothing found...")}
@@ -188,5 +191,7 @@ Dot.prototype.radius = 5;
 Dot.prototype.thinkSpeed = 5000;
 Dot.prototype.loopSpeed = 10;
 Dot.prototype.moveSpeed = 0.2;
+
+return Dot
 
 });

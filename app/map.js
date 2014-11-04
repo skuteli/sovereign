@@ -1,3 +1,4 @@
+
 define(["app/canvas"], function (canvas) {
 
     Map = function(canvas) {
@@ -65,6 +66,7 @@ define(["app/canvas"], function (canvas) {
 
 
     Map.prototype.throwFirstFromPoint= function(x,y, klass, excludedElement) {
+        var  result
         if (this.isInMap({x:x, y:y})) {
             result=this.data[x][y].findFirst(function(el){
                     return el instanceof klass
