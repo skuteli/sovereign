@@ -42,8 +42,8 @@ Object.defineProperties(Queue.prototype, {
 
   ,resume : {
 	value: function() {
-	      for (key in this) {
-	        if (!this[key].callback) {
+	      for (let key in this) {
+	        if (!this[key] || !this[key].callback) {
 	        debugger;
 	      }
 	      console.log("resumed")
@@ -59,7 +59,7 @@ Object.defineProperties(Queue.prototype, {
 
   ,pause : {
   	value: function() {
-	    for (key in this) {
+	    for (let key in this) {
 	      if (this[key]) {
 	        console.log("paused")
 	        

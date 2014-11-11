@@ -27,8 +27,9 @@
  				<span data-bind='text:stats.timers.draw'></span>
  				ms
  			</p>
+            <div data-bind="chart:stats.timers.draw" style="width:200px; height:40px; border:1px solid black"></div>
  			<p>
- 				<button data-bind="click:QUEUE.toggle.bind(QUEUE), text:isRunning() ?'Pause':'Resume'">Stop/start</button>
+ 			<button data-bind="click:QUEUE.toggle.bind(QUEUE), text:isRunning() ? 'Pause' : 'Resume'">Stop/start</button>
  			</p>
  		</div>
  	</body>

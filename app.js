@@ -13,4 +13,6 @@ requirejs.config({
     }
 });
 
-requirejs(["app/main"]);
+requirejs(["app/chartBinding"])
+
+requirejs(["app/main"])
