@@ -22,7 +22,12 @@ define(["app/canvas"], function (canvas) {
 
 
     Map.prototype.push = function(o) {
-        this.data[Math.round(o.x)][Math.round(o.y)].push(o)
+        if (this.isInMap(o)) {            
+          this.data[Math.round(o.x)][Math.round(o.y)].push(o)
+        }
+        else {
+            throw new Error("tried to push invalid object to map, x: "+o.x+', y: '+o.y)
+        }
     }
 
 

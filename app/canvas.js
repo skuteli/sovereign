@@ -11,7 +11,8 @@ exports.animate = function animate(canvas) {
     helpers.startTimer('draw')
     draw();
     helpers.stopTimer('draw')
-    requestAnimFrame( animate );
+    setTimeout(animate, 200)
+    // requestAnimFrame( animate );
 }
 
 function draw() {

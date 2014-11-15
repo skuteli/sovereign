@@ -3,12 +3,15 @@
 define([], function () {
 
 
-let MapObject = function MapObject (x,y, type) {
+let MapObject = function MapObject (x,y) {
+	if (typeof x != 'number' || typeof y != 'number') {throw 'MapObject constructor called without x or y'}
+
 	this.x = x || 100
 	this.y = y || 100
 	MAP.push(this)
 	this.radius = (Math.random() * 5 + 5).toFixed()
 }
+
 
 MapObject.prototype.getPosition = function(){
 	return {
