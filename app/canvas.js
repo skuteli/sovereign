@@ -11,22 +11,12 @@ exports.animate = function animate(canvas) {
     helpers.startTimer('draw')
     draw();
     helpers.stopTimer('draw')
-    setTimeout(animate, 200)
-    // requestAnimFrame( animate );
+    // setTimeout(animate, 200)
+    requestAnimFrame( animate );
 }
 
 function draw() {
 
-    // var time = new Date().getTime() * 0.002;
-    // var x = Math.sin( time ) * 192 + 256;
-    // var y = Math.cos( time * 0.9 ) * 192 + 256;
-    // toggle = !toggle;
-
-    // context.fillStyle = toggle ? 'rgb(200,200,20)' :  'rgb(20,20,200)';
-    // context.beginPath();
-    // context.arc( x, y, 10, 0, Math.PI * 2, true );
-    // context.closePath();
-    // context.fill();
     CONTEXT.clearRect(0, 0, CANVAS.width, CANVAS.height);
     for (var i = 0; i<DOTS.length; i++) {
     	drawDot(DOTS[i])

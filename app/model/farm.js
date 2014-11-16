@@ -10,6 +10,12 @@ let Farm = function Farm (x,y, intent) {
 	//this.live();
 }
 
+Farm.prototype = Object.create(MapObject.prototype, {
+    constructor: {
+        value:Farm
+    }
+})
+
 Farm.prototype.getColor = function() {
     return colors.farms.default
 }

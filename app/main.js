@@ -12,8 +12,9 @@ require([
     , "app/events"
     , "app/model/dot"
     , "app/model/farm"
+    , "app/model/cartesian"
     ],
-function (ko, config, colors, canvas, helpers, ViewModel, Map, Queue, events, Dot, Farm) {
+function (ko, config, colors, canvas, helpers, ViewModel, Map, Queue, events, Dot, Farm, Cartesian) {
 
 var rhytm = 100;
 window.elementSelected = false;

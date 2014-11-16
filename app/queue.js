@@ -24,15 +24,18 @@ let Queue = function Queue() {
 
 Object.defineProperties(Queue.prototype, {
   add : {
-    value: function(callback, hostObject, delay, args) {
-            if (args) args = Array.prototype.slice.call(arguments, 3);
+    value: function(callback, hostObject, delay, callbackArguments) {
+            if (!callback||!hostObject||!delay) {
+              debugger;
+            }
+
             let applyAction = (function () {
-                  callback.apply(hostObject, args)
-                  delete this[timer]                
+                  callback.apply(hostObject, callbackArguments)
+                  delete this[timer]          
             }).bind(this)
 
             let timer = setTimeout(applyAction, delay)
-            this[timer] = {callback:callback, hostObject: hostObject, arguments: arguments}
+            this[timer] = {callback:callback, hostObject: hostObject, arguments: callbackArguments}
             this[timer].scheduled = performance.now() + delay
             return timer
     }
@@ -47,10 +50,9 @@ Object.defineProperties(Queue.prototype, {
           }
           console.log("resumed")
 
-          this.add(this[key].callback, this[key].hostObject, this[key].scheduled)
+          this.add(this[key].callback, this[key].hostObject, this[key].scheduled, this[key].arguments)
           delete this[key]
         }
-        console.log(performance.now())
         this.isRunning = true
     }
     ,enumerable:false
@@ -66,7 +68,6 @@ Object.defineProperties(Queue.prototype, {
             clearTimeout(key)
           }
         }
-        console.log(performance.now())
         this.isRunning = false
       }
     ,enumerable:false

@@ -1,6 +1,6 @@
 "use strict";
 
-define(["app/model/movingObject", "app/model/farm", "configuration/colors"], function (MovingObject, Farm, colors) {
+define(["app/model/movingObject", "app/model/farm", "configuration/colors", "app/tests/testObjects"], function (MovingObject, Farm, colors, testObjects) {
 
 let Dot = function (x,y, intent) {
     this.isDead=false;
@@ -30,12 +30,12 @@ Dot.prototype = Object.create(MovingObject.prototype, {
 Dot.prototype.live = function live () {
     if(this.isSelected || this.isDead)
     {
-        console.warn("Attempting to live on dead or selected dot. Returning.")
+        // console.warn("Attempting to live on dead or selected dot. Returning.")
         return
     }
     else 
     {
-        console.log("Dot is alive! Will think.")
+        // console.log("Dot is alive! Will think.")
         this.think()
         this.life = QUEUE.add(live, this, this.thinkSpeed)
     }
@@ -54,19 +54,19 @@ Dot.prototype.getColor = function() {
 
 Dot.prototype.collide = function(e) {
     if (e instanceof Dot) {
-        console.log('collided with dot!')
+        // console.log('collided with dot!')
         if (this.vassals.length<this.maxVassals && e.power<this.power) {
             this.dominate(e)
         }
         else if (this.vassals.length>=this.maxVassals) {
-            console.log('max vassals reached')
+            // console.log('max vassals reached')
         }
         else if (e.power>=this.power) {
-            console.log('to powerfull!')
+            // console.log('to powerfull!')
         }
     }
     if (e instanceof Farm) {
-        console.log("collided with farm.")
+        // console.log("collided with farm.")
         this.isFarming = true
     }
 }
@@ -103,7 +103,7 @@ Dot.prototype.think = function() {
     this.detectAdjactentCollisions()
     // this.wander()
     if (!this.isFarming && !this.isMoving) {
-        console.log("going to Farm")
+        // console.log("going to Farm")
         this.goToNearest(Farm)
     }
 
@@ -114,7 +114,8 @@ Dot.prototype.think = function() {
     	}
     	else if (Date.now()%3==1) {
     		this.isFarming=false
-    		this.goTo({x:this.x+(Math.random()-0.5)*50, y:this.y+(Math.random()-0.5)*50})
+
+    		this.goTo(new testObjects.RandomNearbyLocation(this))
     	}
     }
 }

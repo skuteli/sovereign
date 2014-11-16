@@ -15,7 +15,7 @@ define(["app/canvas"], function (canvas) {
     }
 
     Map.prototype.isInMap = function(o) {
-        if (o.x>0&&o.x<this.width&&o.y>0&&o.y<this.height) {
+        if (o.x>=0&&o.x<this.width&&o.y>=0&&o.y<this.height) {
             return true;
         }    else return false
     }
@@ -38,7 +38,7 @@ define(["app/canvas"], function (canvas) {
 
     Map.prototype.getFirstBiased = function(location, radius, klass) {
 
-        console.log("looking for nearest "+ klass.name + " from x:" +location.x+", y:"+location.y+" in square "+radius+" wide.")
+        // console.log("looking for nearest "+ klass.name + " from x:" +location.x+", y:"+location.y+" in square "+radius+" wide.")
 
         var result
           , klass = klass || Object //Class filter
@@ -59,7 +59,7 @@ define(["app/canvas"], function (canvas) {
                         result.y-y<radius &&
                         result!=location) // don't push element itself
                         {
-                            console.log("Found "+ klass.name + ". Returning from map.")
+                            // console.log("Found "+ klass.name + ". Returning from map.")
                             return result
                         }
                 }
@@ -84,7 +84,7 @@ define(["app/canvas"], function (canvas) {
 
     Map.prototype.getFirst = function(location, radius, klass) {
 
-        console.log("looking for nearest "+ klass.name + " from x:" +location.x+", y:"+location.y+" in radius "+radius+".")
+        // console.log("looking for nearest "+ klass.name + " from x:" +location.x+", y:"+location.y+" in radius "+radius+".")
         var klass = klass || Object //Class filter
           , x=Math.round(location.x)
           , y=Math.round(location.y)
@@ -109,7 +109,7 @@ define(["app/canvas"], function (canvas) {
         catch (e)
         {
             if (e instanceof klass) {
-                console.info("Found "+ klass.name + ". Radius:"+ currentRadius +" Returning from map.")
+                // console.info("Found "+ klass.name + ". Radius:"+ currentRadius +" Returning from map.")
                 return e
             }
             else {
