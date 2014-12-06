@@ -13,8 +13,9 @@ require([
     , "app/model/dot"
     , "app/model/farm"
     , "app/model/cartesian"
+    , "app/geography/geography"
     ],
-function (ko, config, colors, canvas, helpers, ViewModel, Map, Queue, events, Dot, Farm, Cartesian) {
+function (ko, config, colors, canvas, helpers, ViewModel, Map, Queue, events, Dot, Farm, Caretsian) {
 
 var rhytm = 100;
 window.elementSelected = false;

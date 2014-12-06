@@ -4,6 +4,8 @@ body {
 }
 
 canvas#dot {
+    position: relative;
+    z-index: 2;
     border:1px solid blue;
     /*    width:1600px;
           height:800px;*/
@@ -11,7 +13,17 @@ canvas#dot {
     margin-top:10px;
     display: inline-block;
 }
-
+canvas#geography {
+    position: absolute;
+    top:0;
+    z-index: 1;
+    border:1px solid blue;
+    /*    width:1600px;
+          height:800px;*/
+    margin-left:10px;
+    margin-top:10px;
+    display: inline-block;
+}
 
 #stats {
     padding-left: 10px;
